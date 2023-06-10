@@ -3,16 +3,16 @@ import GridElement from "./GridElement";
 import gridElements from "../helpers/gridElements";
 import { useEffect, useState, useRef } from "react";
 
-const renderXEl = 14;
-const renderYEl = 14;
-const arrX = new Array(renderXEl).fill(0);
-const arrY = new Array(renderYEl).fill(0);
-const elXCount = 1000;
-const elYCount = 15;
+const elXCount = gridElements[0].length;
+const elYCount = gridElements.length;
 const elHi = 50;
 const elW = 50;
 const visibleHi = 500;
 const visibleW = 500;
+const renderXEl = Math.ceil(visibleHi / elHi) + 2;
+const renderYEl = Math.ceil(visibleW / elW) + 2;
+const arrX = new Array(renderXEl).fill(0);
+const arrY = new Array(renderYEl).fill(0);
 
 const Table = () => {
   const [posX, setPosX] = useState<number>(0);
@@ -40,44 +40,65 @@ const Table = () => {
     const posXEl = Math.ceil(
       (left - (renderXEl / 2) * elW + visibleW / 2) / elW
     );
-    for (let j = 0; j < renderXEl; j++) {
-      divRefs.current[0][j]!.style.left = `${(posXEl + j) * elW}px`;
-      divRefs.current[0][j]!.style.top = `${top}px`;
+    divRefs.current.slice(1).forEach((el, index) => {
+      el[0]!.style.left = `${left}px`;
+      el[0]!.style.top = `${(posYEl + index + 1) * elHi}px`;
+    });
+    divRefs.current[0].slice(1).forEach((el, index) => {
+      el!.style.left = `${(posXEl + index + 1) * elW}px`;
+      el!.style.top = `${top}px`;
+    });
+    divRefs.current[0][0]!.style.left = `${left}px`;
+    divRefs.current[0][0]!.style.top = `${top}px`;
+    if (posXEl !== posX || posYEl !== posY) {
+      divRefs.current.slice(1).forEach((c, i) =>
+        c.slice(1).forEach((el, j) => {
+          el!.style.top = `${(posYEl + i + 1) * elHi}px`;
+          el!.style.left = `${(posXEl + j + 1) * elW}px`;
+        })
+      );
+      setPosX(posXEl);
+      setPosY(posYEl);
     }
-    for (let i = 1; i < renderYEl; i++) {
-      for (let j = 0; j < renderXEl; j++) {
-        divRefs.current[i][j]!.style.top = `${(posYEl + i) * elHi}px`;
-        divRefs.current[i][j]!.style.left = `${(posXEl + j) * elW}px`;
-      }
-    }
-    setPosX(posXEl);
-    setPosY(posYEl);
   };
 
   return (
     <div onScrollCapture={onScrollHandler} className={cl.container}>
       <table className={cl.table} style={{ height: `${elYCount * elHi}px` }}>
-        <thead>
+        <tbody>
           <tr style={{ width: `${elXCount * elW}px` }}>
-            {arrX.map((_, iX) => (
-              <th key={iX} ref={(el) => (divRefs.current[0][iX] = el)}>
-                {posX + iX >= 0 && posX + iX < elXCount && (
-                  <GridElement text={gridElements[0][posX + iX].toString()} />
+            <td key={0} ref={(el) => (divRefs.current[0][0] = el)}>
+              <GridElement text={gridElements[0][0]} />
+            </td>
+
+            {arrX.slice(1).map((_, iX) => (
+              <td key={iX + 1} ref={(el) => (divRefs.current[0][iX + 1] = el)}>
+                {posX + iX + 1 >= 1 && posX + iX + 1 < elXCount && (
+                  <GridElement text={gridElements[0][posX + iX + 1]} />
                 )}
-              </th>
+              </td>
             ))}
           </tr>
-        </thead>
-        <tbody>
           {arrY.slice(1).map((_, iY) => (
-            <tr style={{ width: `${elXCount * elW}px` }} key={iY + 1}>
-              {arrX.map((_, iX) => (
-                <td key={iX} ref={(el) => (divRefs.current[iY + 1][iX] = el)}>
-                  {posY + iY + 1 >= 0 &&
+            <tr key={iY + 1}>
+              <td key={0} ref={(el) => (divRefs.current[iY + 1][0] = el)}>
+                {posY + iY + 1 >= 1 && posY + iY + 1 < elYCount && (
+                  <GridElement text={gridElements[posY + iY + 1][0]} />
+                )}
+              </td>
+              {arrX.slice(1).map((_, iX) => (
+                <td
+                  key={iX + 1}
+                  ref={(el) => (divRefs.current[iY + 1][iX + 1] = el)}
+                >
+                  {posY + iY + 1 >= 1 &&
                     posY + iY + 1 < elYCount &&
-                    posX + iX >= 0 &&
-                    posX + iX < elXCount &&
-                    gridElements[posY + iY + 1][posX + iX].toString()}
+                    posX + iX + 1 >= 1 &&
+                    posX + iX + 1 < elXCount && (
+                      <GridElement
+                        text={gridElements[posY + iY + 1][posX + iX + 1]}
+                      />
+                    )}
                 </td>
               ))}
             </tr>

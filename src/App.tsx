@@ -5,12 +5,12 @@ import RowVirtualizerFixed from "@components/Tanstack";
 import SimpleList from "@components/SimpleList";
 import CompromiseList from "@components/CompromiseList";
 import HList from "@components/HList";
-import Grid from "@components/Grid";
+import Table from "@components/Table";
 
 const App = () => {
   return (
     <div className={cl.container}>
-      <div className={cl.thirdPart}>
+   {/*   <div className={cl.thirdPart}>
         <RowVirtualizerFixed />
         <ReactVirtualized />
       </div>
@@ -19,8 +19,8 @@ const App = () => {
         <CompromiseList/>
         <ServerList />
       </div>
-      <HList/>
-      <Grid/>
+      <HList/> */}
+      <Table/>
     </div>
   );
 };
