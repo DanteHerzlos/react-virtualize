@@ -1,0 +1,15 @@
+.element {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 50px;
+  border: 1px solid gray;
+  user-select: none;
+  text-align: center;
+  padding: 3px;
+}
+.text {
+  overflow: hidden;
+  overflow-wrap: break-word;
+}

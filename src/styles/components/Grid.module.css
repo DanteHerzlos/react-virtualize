@@ -1,0 +1,17 @@
+.grid {
+  width: 500px;
+  height: 500px;
+  border: 1px solid gray;
+  overflow-x: scroll;
+  overflow-Y: scroll;
+}
+
+.grid::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,0.3);
+  border-radius: 2px;
+}
+
+.grid::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}

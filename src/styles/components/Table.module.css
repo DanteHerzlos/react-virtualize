@@ -1,0 +1,36 @@
+.container {
+  width: 500px;
+  height: 500px;
+  overflow-x: scroll;
+  overflow-Y: scroll;
+}
+
+.container::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,0.3);
+  border-radius: 2px;
+}
+
+.container::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.table {
+  border-collapse: collapse;
+  position: relative;
+}
+
+
+.table td, .table th, .table tr {
+  position: absolute;
+}
+.table tbody, .table thead {
+  position: relative;
+}
+
+
+.table th {
+  background-color: #ffffff;
+  font-weight: 900;
+  z-index: 20;
+}

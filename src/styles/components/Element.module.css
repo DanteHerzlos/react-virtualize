@@ -1,0 +1,9 @@
+.element {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  width: 100%;
+  border: 1px solid gray;
+  user-select: none;
+}

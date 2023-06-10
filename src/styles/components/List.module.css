@@ -1,0 +1,15 @@
+.list {
+  overflow-y: scroll;
+  border: 1px solid gray;
+  height: 300px;
+  width: 200px;
+}
+
+.list::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,0.3);
+  border-radius: 2px;
+}
+
+.list::-webkit-scrollbar {
+  width: 10px;
+}
